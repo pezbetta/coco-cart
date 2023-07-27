@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  backend:
+    image: "coco-cart-backend:latest"
+
+  frontend:
+    image: "coco-cart-frontend:latest"
