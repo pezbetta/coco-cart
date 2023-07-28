@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="9" failures="0" skipped="0" tests="9" time="2.696" timestamp="2023-07-27T16:16:04.005277" hostname="9a2cc05d440a"><testcase classname="tests.api.test_items.TestGetItems" name="test_get_items_not_logged_in" time="0.007"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_items.TestGetItems" name="test_get_items" time="0.001"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_items.TestGetSingleItem" name="test_get_single_item" time="0.000"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_items.TestCreateItem" name="test_create_item" time="0.000"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_items.TestDeleteItem" name="test_delete_item" time="0.001"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_items.TestDeleteItem" name="test_delete_item_does_not_exist" time="0.000"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_items.TestUpdateItem" name="test_update_item" time="0.000"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.api.test_utils" name="test_hello_world" time="0.000"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase><testcase classname="tests.models.test_user" name="test_user_model" time="0.001"><error message="failed on setup with &quot;asyncpg.exceptions.InvalidCatalogNameError: database &quot;apptest&quot; does not exist&quot;">event_loop = &lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+request = &lt;SubRequest 'init_db' for &lt;Function test_get_items_not_logged_in&gt;&gt;, kwargs = {}
+setup = &lt;function _wrap_async_fixture.&lt;locals&gt;._async_fixture_wrapper.&lt;locals&gt;.setup at 0x7fa80b51f370&gt;
+
+    @functools.wraps(fixture)
+    def _async_fixture_wrapper(
+        event_loop: asyncio.AbstractEventLoop, request: SubRequest, **kwargs: Any
+    ):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+    
+        async def setup():
+            res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+            return res
+    
+&gt;       return event_loop.run_until_complete(setup())
+
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/local/lib/python3.10/asyncio/base_events.py:649: in run_until_complete
+    return future.result()
+/usr/local/lib/python3.10/site-packages/pytest_asyncio/plugin.py:323: in setup
+    res = await func(**_add_kwargs(func, kwargs, event_loop, request))
+/app/tests/conftest.py:32: in init_db
+    async with engine.begin() as conn:
+/usr/local/lib/python3.10/contextlib.py:199: in __aenter__
+    return await anext(self.gen)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:1047: in begin
+    async with conn:
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/base.py:127: in __aenter__
+    return await self.start(is_ctxmanager=True)  # type: ignore
+/usr/local/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/engine.py:268: in start
+    await greenlet_spawn(self.sync_engine.connect)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3264: in connect
+    return self._connection_cls(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:145: in __init__
+    self._dbapi_connection = engine.raw_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py:3288: in raw_connection
+    return self.pool.connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:452: in connect
+    return _ConnectionFairy._checkout(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:1267: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:716: in checkout
+    rec = pool._do_get()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:169: in _do_get
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/impl.py:167: in _do_get
+    return self._create_connection()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:393: in _create_connection
+    return _ConnectionRecord(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:678: in __init__
+    self.__connect()
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:902: in __connect
+    with util.safe_reraise():
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py:147: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/pool/base.py:898: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/create.py:637: in connect
+    return dialect.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py:615: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+/usr/local/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:917: in connect
+    await_only(creator_fn(*arg, **kw)),
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:125: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+/usr/local/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py:185: in greenlet_spawn
+    value = await result
+/usr/local/lib/python3.10/site-packages/asyncpg/connection.py:2114: in connect
+    return await connect_utils._connect(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:982: in _connect
+    conn = await _connect_addr(
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:808: in _connect_addr
+    return await __connect_addr(params, timeout, True, *args)
+/usr/local/lib/python3.10/site-packages/asyncpg/connect_utils.py:866: in __connect_addr
+    await compat.wait_for(connected, timeout=timeout)
+/usr/local/lib/python3.10/site-packages/asyncpg/compat.py:60: in wait_for
+    return await asyncio.wait_for(fut, timeout)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+fut = &lt;Future finished exception=InvalidCatalogNameError('database "apptest" does not exist')&gt;, timeout = 59.99693679099437
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        This function is a coroutine.
+        """
+        loop = events.get_running_loop()
+    
+        if timeout is None:
+            return await fut
+    
+        if timeout &lt;= 0:
+            fut = ensure_future(fut, loop=loop)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut, loop=loop)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise exceptions.TimeoutError() from exc
+    
+        waiter = loop.create_future()
+        timeout_handle = loop.call_later(timeout, _release_waiter, waiter)
+        cb = functools.partial(_release_waiter, waiter)
+    
+        fut = ensure_future(fut, loop=loop)
+        fut.add_done_callback(cb)
+    
+        try:
+            # wait until the future completes or the timeout
+            try:
+                await waiter
+            except exceptions.CancelledError:
+                if fut.done():
+                    return fut.result()
+                else:
+                    fut.remove_done_callback(cb)
+                    # We must ensure that the task is not running
+                    # after wait_for() returns.
+                    # See https://bugs.python.org/issue32751
+                    await _cancel_and_wait(fut, loop=loop)
+                    raise
+    
+            if fut.done():
+&gt;               return fut.result()
+E               asyncpg.exceptions.InvalidCatalogNameError: database "apptest" does not exist
+
+/usr/local/lib/python3.10/asyncio/tasks.py:445: InvalidCatalogNameError</error></testcase></testsuite></testsuites>
