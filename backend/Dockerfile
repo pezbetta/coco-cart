@@ -1,10 +1,12 @@
 ARG PYTHON_VER=3.10
 
-FROM python:${PYTHON_VER} AS base
+FROM python:${PYTHON_VER}-slim AS base
 
 WORKDIR /app
 
 ENV PYTHONUNBUFFERED=1
+
+RUN apt-get -y update; apt-get -y install curl
 
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python && \
@@ -18,12 +20,8 @@ RUN poetry install --no-root
 
 COPY . /app
 
-FROM python:3.10-slim
+FROM base
 
 WORKDIR /app
-
-COPY --from=base /app /app
-COPY --from=base /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-COPY --from=base /usr/local/bin /usr/local/bin
 
 CMD uvicorn --host 0.0.0.0 --port 8000 main:app
