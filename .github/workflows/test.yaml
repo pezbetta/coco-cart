@@ -54,7 +54,7 @@ jobs:
         docker-compose exec -T backend pytest -v --cov --cov-report term-missing
 
     - name: Cypress run
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
       env:
         # Add Cypress key to Github project settings if you want to
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
